@@ -74,26 +74,42 @@ finish-args:
   - --socket=fallback-x11 # Permission needed to show the window
   - --device=dri # OpenGL, not necessary for all projects
   - --share=ipc
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node20
+  - org.freedesktop.Sdk.Extension.rust-stable
+build-options:
+  append-path: /usr/lib/sdk/node20/bin:/usr/lib/sdk/rust-stable/bin
 
 modules:
-  - name: binary
+  - name: your-module
     buildsystem: simple
+    env:
+        HOME: /run/build/your-module
+        CARGO_HOME: /run/build/your-module/src-tauri
+        XDG_CACHE_HOME: /run/build/your-module/flatpak-node/cache
+        yarn_config_offline: 'true'
+        yarn_config_cache: /run/build/your-module/flatpak-node/yarn-cache
     sources:
-      - type: file
-        url: https://github.com/your_username/your_repository/releases/download/v1.0.1/yourapp_1.0.1_amd64.deb
-        sha256: 08305b5521e2cf0622e084f2b8f7f31f8a989fc7f407a7050fa3649facd61469 # This is required if you are using a remote source
-        only-arches: [x86_64] #This source is only used on x86_64 Computers
-        # This path points to the binary file which was created in the .deb bundle.
-        # Tauri also creates a folder which corresponds to the content of the unpacked .deb.
+      - type: git
+        url: https://github.com/Your-Github-Username/Your-Git-Repo.git
+        tag: v1.2.2
+      - cargo-sources.json
+      - node-sources.json
     build-commands:
-      - ar -x *.deb
-      - tar -xf data.tar.gz
-      - 'install -Dm755 usr/bin/tauri-app /app/bin/tauri-app'
-      - install -Dm644 usr/share/applications/yourapp.desktop /app/share/applications/org.your.id.desktop
-      - install -Dm644 usr/share/icons/hicolor/128x128/apps/yourapp.png /app/share/icons/hicolor/128x128/apps/org.your.id.png
-      - install -Dm644 usr/share/icons/hicolor/32x32/apps/yourapp.png /app/share/icons/hicolor/32x32/apps/org.your.id.png
-      - install -Dm644 usr/share/icons/hicolor/256x256@2/apps/yourapp.png /app/share/icons/hicolor/256x256@2/apps/org.your.id.png
-      - install -Dm644 org.your.id.metainfo.xml /app/share/metainfo/org.your.id.rosary.metainfo.xml
+      - echo -e 'yarn-offline-mirror "/run/build/your-module/flatpak-node/yarn-mirror"\nyarn-offline-mirror-pruning true' > /run/build/your-module/.yarnrc
+      - mkdir -p src-tauri/.cargo && echo -e '[source.crates-io]\nreplace-with = "vendored-sources"\n\n[source.vendored-sources]\ndirectory = "/run/build/your-module/cargo/vendor"' > src-tauri/.cargo/config.toml
+      - yarn install  --offline --immutable --immutable-cache --inline-builds
+      - yarn run tauri build -- -b deb
+      - ar -x src-tauri/target/release/bundle/deb/*.deb
+      - tar -xf src-tauri/target/release/bundle/deb/your-app/data.tar.gz
+      - install -Dm755 src-tauri/target/release/bundle/deb/your-app/data/usr/bin/your-binary /app/bin/your-binary
+      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/applications/Rosary-Music.desktop /app/share/applications/org.your.id.desktop
+      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/128x128/apps/your-app.png /app/share/icons/hicolor/128x128/apps/your-app.png
+      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/32x32/apps/your-app.png /app/share/icons/hicolor/32x32/apps/your-app.png
+      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/256x256@2/apps/your-app.png /app/share/icons/hicolor/512x512/apps/your-app.png
+      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/scalable/apps/your-app.svg /app/share/icons/hicolor/scalable/apps/your-app.svg
+
+      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/metainfo/org.your.id /app/share/metainfo/org.your.id
 ```
 
 The Gnome 46 runtime includes all dependencies of the standard Tauri app with their correct versions.
