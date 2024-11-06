@@ -7,7 +7,7 @@ sidebar:
 import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
 
 <Tabs>
-  <TabItem label="Preferred Method(Compiling From Source)">
+  <TabItem label="Open Source">
 1. Get your required tools.
 ```sh
 git submodule add https://github.com/flatpak/flatpak-builder-tools.git
@@ -110,7 +110,7 @@ Your metadata is recommended to be included into your debian bundle although it 
 id: org.your.id
 
 runtime: org.gnome.Platform
-runtime-version: '46'
+runtime-version: '47'
 sdk: org.gnome.Sdk
 
 command: tauri-app
@@ -181,7 +181,7 @@ git checkout -b your_app_name
 
 **_6. Your app will now enter the review process in which you may be asked to make changes to your project._**
   </TabItem>
-  <TabItem label="Simple Method(Not Suggested)">
+  <TabItem label="Closed Source">
 For detailed information on how Flatpak works, you can read [Building your first Flatpak](https://docs.flatpak.org/en/latest/first-build.html)
 
 This guide assumes you want to distribute your Flatpak via [Flathub](https://flathub.org/), the most commonly used platform for Flatpak distribution. If you plan on using other platforms, please consult their documentation instead.
@@ -241,7 +241,7 @@ flatpak install flathub org.gnome.Platform//46 org.gnome.Sdk//46
 id: org.your.id
 
 runtime: org.gnome.Platform
-runtime-version: '46'
+runtime-version: '47'
 sdk: org.gnome.Sdk
 
 command: tauri-app
