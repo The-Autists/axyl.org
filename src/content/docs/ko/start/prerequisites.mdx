@@ -1,0 +1,386 @@
+---
+title: 요구사항
+i18nReady: true
+sidebar:
+  order: 0
+---
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+
+Tauri를 사용하여 프로젝트를 시작하기 위해 몇 가지 의존성을 설치해야 합니다:
+
+1. [시스템 의존성](#시스템-의존성)
+2. [Rust](#rust)
+3. [모바일 타겟을 위한 설정](#모바일-타겟을-위한-설정) (모바일 개발을 할 때에 필요)
+
+## 시스템 의존성
+
+사용하고 있는 각 운영 체제에 대해 시작 링크를 따라가세요:
+
+- [Linux](#linux) (특정 배포판에 대해 아래 내용 참고)
+- [macOS Catalina (10.15) 혹은 이후 버전](#macos)
+- [Windows 7 혹은 이후 버전](#windows)
+
+### Linux
+
+Tauri는 Linux에서 개발을 위한 다양한 시스템 의존성을 요구합니다. 이는 배포판에 따라 다를 수 있지만, 아래에서 일반적인 배포판에 대한 설정을 참고하세요.
+
+{/* Note: These are the officially supported linux distributions. */}
+{/* If you wish to add another please open an issue to discuss prior to opening a PR */}
+
+<Tabs syncKey="distro">
+  <TabItem label="Debian">
+
+```sh
+sudo apt update
+sudo apt install libwebkit2gtk-4.1-dev \
+  build-essential \
+  curl \
+  wget \
+  file \
+  libxdo-dev \
+  libssl-dev \
+  libayatana-appindicator3-dev \
+  librsvg2-dev
+```
+
+  </TabItem>
+  <TabItem label="Arch">
+
+```sh
+sudo pacman -Syu
+sudo pacman -S --needed \
+  webkit2gtk-4.1 \
+  base-devel \
+  curl \
+  wget \
+  file \
+  openssl \
+  appmenu-gtk-module \
+  libappindicator-gtk3 \
+  librsvg
+```
+
+  </TabItem>
+  <TabItem label="Fedora">
+
+```sh
+sudo dnf check-update
+sudo dnf install webkit2gtk4.1-devel \
+  openssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator-gtk3-devel \
+  librsvg2-devel
+sudo dnf group install "C Development Tools and Libraries"
+```
+
+  </TabItem>
+  <TabItem label="Gentoo">
+
+```sh
+sudo emerge --ask \
+  net-libs/webkit-gtk:4.1 \
+  dev-libs/libappindicator \
+  net-misc/curl \
+  net-misc/wget \
+  sys-apps/file
+```
+
+  </TabItem>
+  <TabItem label="openSUSE">
+
+```sh
+sudo zypper up
+sudo zypper in webkit2gtk3-devel \
+  libopenssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator3-1 \
+  librsvg-devel
+sudo zypper in -t pattern devel_basis
+```
+
+  </TabItem>
+  <TabItem label="Alpine">
+```sh
+sudo apk add \
+  build-base \
+  webkit2gtk \
+  curl \
+  wget \
+  file \
+  openssl \
+  libayatana-appindicator-dev \
+  librsvg
+```
+  </TabItem>
+  <TabItem label="NixOS">
+
+Using `nix-shell`:
+
+```sh
+with import <nixpkgs> { };
+mkShell {
+  buildInputs = [
+    at-spi2-atk
+    atkmm
+    cairo
+    gdk-pixbuf
+    glib
+    gobject-introspection
+    gobject-introspection.dev
+    gtk3
+    harfbuzz
+    librsvg
+    libsoup_3
+    pango
+    webkitgtk_4_1
+    webkitgtk_4_1.dev
+  ];
+
+  PKG_CONFIG_PATH = "${glib.dev}/lib/pkgconfig:${libsoup_3.dev}/lib/pkgconfig:${webkitgtk_4_1.dev}/lib/pkgconfig:${at-spi2-atk.dev}/lib/pkgconfig:${gtk3.dev}/lib/pkgconfig:${gdk-pixbuf.dev}/lib/pkgconfig:${cairo.dev}/lib/pkgconfig:${pango.dev}/lib/pkgconfig:${harfbuzz.dev}/lib/pkgconfig";
+}
+```
+
+  </TabItem>
+</Tabs>
+
+만약 사용하고 있는 배포판이 위에 포함되지 않는다면, [Github의 Awesome Tauri](https://github.com/tauri-apps/awesome-tauri#guides)에서 가이드를 찾아보세요.
+
+다음 단계: [Rust 설치](#rust)
+
+### macOS
+
+Tauri는 [Xcode](https://developer.apple.com/xcode/resources/)와 다양한 macOS 및 iOS 개발 의존성을 사용합니다.
+
+아래의 링크에서 Xcode를 다운로드하고 설치하세요:
+
+- [Mac App Store](https://apps.apple.com/gb/app/xcode/id497799835?mt=12)
+- [Apple Developer 웹사이트](https://developer.apple.com/xcode/resources/).
+
+Xcode를 설치 후 실행하여 설정을 완료하세요.
+
+<details>
+<summary>데스크톱 환경을 대상으로만 개발하나요?</summary>
+만약 iOS 개발을 하지 않는다면, 대신 Xcode Command Line Tools를 설치할 수 있습니다:
+
+```sh
+xcode-select --install
+```
+
+</details>
+
+다음 단계: [Rust 설치](#rust)
+
+### Windows
+
+Tauri는 개발을 위해 Microsoft C++ Build Tools와 Microsoft Edge WebView2를 사용합니다. 이 두 가지는 Windows에서의 개발을 위해 필요합니다.
+
+아래의 단계를 따라 필요한 의존성을 설치하세요.
+
+#### Microsoft C++ Build Tools
+
+1. [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) 설치 프로그램을 다운로드하고 설치를 시작하세요.
+2. 설치 과정에서 "Desktop development with C++ (데스크톱 개발을 위한 C++)" 옵션을 확인하세요.
+
+![Visual Studio C++ Build Tools installer screenshot](@assets/start/prerequisites/visual-studio-build-tools-installer.png)
+
+다음 단계: [WebView2 설치](#webview2).
+
+#### WebView2
+
+:::tip
+WebView 2는 Windows 10 (버전 1803 이후) 및 이후 버전에 이미 설치되어 있습니다. 이 버전들 중 하나를 개발하고 있다면, 이 단계를 건너뛰고 [Rust 설치](#rust)로 넘어가세요.
+:::
+
+Tauri는 Windows에서 Microsoft Edge WebView2를 사용하여 콘텐츠를 렌더링합니다.
+
+WebView2를 설치하려면 [WebView2 Runtime 다운로드 섹션](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section)을 방문하세요. "Evergreen Boostrapper"를 다운로드하고 설치하세요.
+
+다음 단계: [Rust 설치](#rust)
+
+## Rust
+
+Tauri는 [Rust](https://www.rust-lang.org)로 빌드되며, 개발을 위해 필요합니다. 아래의 방법 중 하나를 사용하여 Rust를 설치하세요. 더 많은 설치 방법은 [여기](https://www.rust-lang.org/tools/install)를 참고하세요.
+
+<Tabs syncKey="OS">
+  <TabItem label="Linux 및 macOS" class="content">
+
+[`rustup`](https://github.com/rust-lang/rustup)을 사용하여 설치하세요:
+
+```sh
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+```
+
+:::tip[보안 팁]
+저희는 이 bash 스크립트를 검증했고, 이 스크립트는 제대로 작동합니다. 하지만 무턱대고 스크립트를 실행하기 전에 항상 스크립트를 먼저 살펴보는 것이 현명합니다.
+
+여기에 평문 스크립트가 있습니다: [rustup.sh](https://sh.rustup.rs/)
+:::
+
+  </TabItem>
+  <TabItem label="Windows">
+
+https://www.rust-lang.org/tools/install 에 방문하여 `rustup`를 설치하세요.
+
+  </TabItem>
+</Tabs>
+
+터미널을 재시작하여 변경 사항을 적용하세요. (때로는 시스템을 재시작해야 할 수도 있습니다.)
+
+다음 단계: Android 및 iOS를 대상으로 개발하고 싶다면 [모바일 타겟을 위한 설정](#모바일-타겟을-위한-설정) 혹은, JavaScript 프레임워크를 사용하고 싶다면 [Node.js 설치](#nodejs). 아니라면 [프로젝트 만들기](/ko/start/create-project/)를 살펴보세요.
+
+## Node.js
+
+:::note[JavaScript 생태계]
+JavaScript 프론트엔드 프레임워크를 사용하고 싶다면 진행하세요.
+:::
+
+1. [Node.js 웹사이트](https://nodejs.org)에 방문하여 LTS 버전을 다운로드하고 설치하세요.
+
+2. 설치가 성공적으로 완료되었는지 확인하려면 다음을 실행하세요:
+
+```sh
+node -v
+# v20.10.0
+npm -v
+# 10.2.3
+```
+
+터미널을 재시작하여 변경 사항을 적용하세요. (때로는 시스템을 재시작해야 할 수도 있습니다.)
+
+npm은 Node.js의 기본 패키지 관리자이지만, pnpm 또는 yarn과 같은 다른 패키지 관리자를 사용할 수도 있습니다. 이를 활성화하려면 터미널에서 `corepack enable`을 실행하세요. 이 단계는 npm을 제외한 패키지 관리자를 사용하고 싶을 때만 필요합니다.
+
+다음 단계: [모바일 타겟을 위한 설정](#모바일-타겟을-위한-설정) 혹은 [프로젝트 만들기](/ko/start/create-project/).
+
+## 모바일 타겟을 위한 설정
+
+만약 앱을 Android 또는 iOS로 빌드하고 싶다면 몇 가지 추가 의존성을 설치해야 합니다:
+
+- [Android](#android)
+- [iOS](#ios)
+
+### Android
+
+1. [Android Studio from the Android Developers 웹사이트](https://developer.android.com/studio)에서 Android Studio를 다운로드받고 설치하세요.
+2. `JAVA_HOME` 환경 변수를 설정하세요:
+
+{/* TODO: Can this be done in the 4th step? */}
+
+<Tabs syncKey="prereqs">
+<TabItem label="Linux">
+
+```sh
+export JAVA_HOME=/opt/android-studio/jbr
+```
+
+</TabItem>
+<TabItem label="macOS">
+
+```sh
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+```ps
+[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\Program Files\Android\Android Studio\jbr", "User")
+```
+
+</TabItem>
+</Tabs>
+3. Android Studio의 SDK 관리자를 사용하여 다음을 설치하세요:
+
+- Android SDK Platform
+- Android SDK Platform-Tools
+- NDK (Side by side)
+- Android SDK Build-Tools
+- Android SDK Command-line Tools
+
+SDK 관리자에서 "Show Package Details"를 선택하면 이전 버전의 패키지를 설치할 수 있습니다. 필요한 경우에만 이전 버전을 설치하세요. 이전 버전은 호환성 문제 또는 보안 위험을 일으킬 수 있습니다.
+
+4. `ANDROID_HOME` 및 `NDK_HOME` 환경 변수를 설정하세요.
+
+<Tabs syncKey="prereqs">
+<TabItem label="Linux">
+
+```sh
+export ANDROID_HOME="$HOME/Android/Sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+```
+
+</TabItem>
+<TabItem label="macOS">
+
+```sh
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+```ps
+[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
+$VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
+[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
+```
+
+:::tip
+PowerShell은 재부팅 또는 로그아웃 후에 새로운 환경 변수를 인식합니다. 하지만 현재 세션을 새로 고칠 수 있습니다:
+
+````ps
+[System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }\
+:::
+
+</TabItem>
+
+</Tabs>
+
+5. `rustup`을 사용하여 Android 타겟을 추가하세요:
+
+```sh
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+````
+
+다음 단계: [iOS 설정](#ios) 혹은 [프로젝트 만들기](/ko/start/create-project/).
+
+### iOS
+
+:::caution[macOS 전용]
+iOS 개발은 Xcode를 필요로 하며, macOS에서만 가능합니다. [macOS 시스템 의존성 섹션](#macos)에서 안내한 Xcode Command Line Tools가 아닌 Xcode를 설치하여야 합니다.
+:::
+
+1. `rustup`을 사용하여 iOS 타겟을 추가하세요:
+
+```sh
+rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
+```
+
+2. [Homebrew](https://brew.sh)를 설치하세요:
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+3. Homebrew를 사용하여 [Cocoapods](https://cocoapods.org)를 설치하세요:
+
+```sh
+brew install cocoapods
+```
+
+다음 단계: [프로젝트 만들기](/ko/start/create-project/).
+
+## 문제 해결
+
+설치 과정에서 문제가 발생하면 [문제 해결 가이드](/ko/develop/debug/)를 확인하세요. 혹은 [Tauri Discord](https://discord.com/invite/tauri)에 문의하세요.
+
+<Card title="다음 단계" icon="rocket">
+
+이제 모든 요구 사항을 설치했으므로 [첫 번째 Tauri 프로젝트 만들기](/ko/start/create-project/)를 진행하세요!
+
+</Card>

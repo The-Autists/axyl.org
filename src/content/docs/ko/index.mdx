@@ -1,0 +1,61 @@
+---
+title: Tauri 2.0
+description: 크로스 플랫폼 앱 제작 도구
+i18nReady: true
+editUrl: false
+lastUpdated: false
+template: splash
+tableOfContents: false
+prev: false
+next: false
+hero:
+  tagline: 작고, 빠르고, 안전한 크로스 플랫폼 앱 만들기
+  image:
+    file: ../../../assets/logo-outline.svg
+  actions:
+    - text: 시작하기
+      link: /ko/start/
+      icon: right-arrow
+      variant: primary
+    - text: Tauri 1.0 문서
+      link: https://v1.tauri.app
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Cta from '@fragments/cta.mdx';
+
+<div class="hero-bg">
+  <div class="bg-logo"></div>
+  <div class="bg-grad"></div>
+  <div class="bg-grad-red"></div>
+</div>
+
+<div class="lp-cta-card">
+  <Card title="프로젝트 생성하기" icon="rocket">
+    <Cta />
+  </Card>
+</div>
+
+<CardGrid>
+  <Card title="프론트엔드 독립형" icon="rocket">
+    기존 웹 스택을 Tauri에 가져오거나 새로운 꿈같은 프로젝트를 시작해보세요.
+    Tauri는 어떤 프론트엔드 프레임워크도 지원하기 때문에 스택을 변경할 필요가 없습니다.
+  </Card>
+  <Card title="크로스 플랫폼" icon="rocket">
+    하나의 코드베이스로 Linux, macOS, Windows, Android 및 iOS 앱을 만들어보세요.
+  </Card>
+  <Card title="프로세스 간 커뮤니케이션(IPC)" icon="rocket">
+    JavaScript로 프론트엔드를, Rust로 앱 로직을 작성하고, Swift와 Kotlin으로 시스템에 깊게 연결하세요.
+  </Card>
+  <Card title="최고의 보안" icon="rocket">
+    Tauri 팀의 최우선 순위이자, 가장 큰 혁신을 이끌어내는 중심입니다.
+  </Card>
+  <Card title="최소한의 크기" icon="rocket">
+    OS의 네이티브 웹 렌더러를 사용하여, Tauri 앱의 크기는 최소 600KB로 줄일 수 있습니다.
+  </Card>
+  <Card title="Rust로 구동" icon="rocket">
+    성능과 보안을 중심에 둔 Rust는 차세대 앱을 위한 언어입니다.
+  </Card>
+</CardGrid>

@@ -1,0 +1,131 @@
+---
+title: Next.js
+i18nReady: true
+tableOfContents:
+  collapseLevel: 1
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Next.js는 React를 위한 메타 프레임워크입니다. Next.js에 대해 더 알아보려면 [https://nextjs.org](https://nextjs.org)를 방문하세요. 이 가이드는 Next.js 14.2.3 버전을 기준으로 작성되었습니다.
+
+## 체크리스트
+
+- `output: 'export'`를 설정하여 정적 내보내기를 사용하세요. Tauri는 서버 기반 솔루션을 지원하지 않습니다.
+- `tauri.conf.json`에서 `frontendDist`를 `out` 디렉토리로 설정하세요.
+
+## 설정 예시
+
+<Steps>
+
+1.  ##### Tauri 설정 업데이트
+
+    <Tabs>
+
+      <TabItem label="npm">
+
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../out"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../out"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../out"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="deno">
+
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../out"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+2.  ##### Next.js 설정 업데이트
+
+    ```ts
+    // next.conf.mjs
+    const isProd = process.env.NODE_ENV === 'production';
+
+    const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
+
+    /** @type {import('next').NextConfig} */
+    const nextConfig = {
+      // Next.js가 SSR 대신 SSG를 사용하도록 설정합니다.
+      // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+      output: 'export',
+      // Note: 이 기능은 SSG 모드에서 Next.js 이미지 컴포넌트를 사용하려면 필요합니다.
+      // 다른 해결 방법은 https://nextjs.org/docs/messages/export-image-api 을 참조하세요.
+      images: {
+        unoptimized: true,
+      },
+      // assetPrefix를 구성하지 않으면 서버에서 에셋을 제대로 확인하지 못합니다.
+      assetPrefix: isProd ? undefined : `http://${internalHost}:3000`,
+    };
+
+    export default nextConfig;
+    ```
+
+3.  ##### package.json 설정 업데이트
+
+        ```json
+        "scripts": {
+          "dev": "next dev",
+          "build": "next build",
+          "start": "next start",
+          "lint": "next lint",
+          "tauri": "tauri"
+        }
+        ```
+
+</Steps>
