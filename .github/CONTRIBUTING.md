@@ -77,7 +77,7 @@ sidebar:
 ---
 import SinceVersion from '../path/to/SinceVersion.astro';
 
-<SinceVersion version="2.1.0" library="optional core library" href="optional link" />
+<SinceVersion version="2.1.0" library="optional core library name" href="optional link" />
 
 Documentation about 'My New Page'...
 
