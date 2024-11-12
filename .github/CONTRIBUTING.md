@@ -59,7 +59,7 @@ Use this chart to help you figure out where the right place for your content is:
 
 ### New Features / Version Display
 
-When writing about a new feature, display the version the it was introduced. 
+When writing about a new feature, display the version it was introduced. 
 Use the `SinceVersion` component for this, located at [`src/components/SinceVersion.astro`](../src//components/SinceVersion.astro).
 Place it directly under the header, which describes the new feature. 
 When creating a new page add a Badge with the text `New` and variant `tip`.
