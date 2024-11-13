@@ -10,7 +10,13 @@
     {
       "location": "../../src/content/docs/**/*.{md,mdx}",
       "pattern": "../../src/content/docs/@lang/@path",
-      "ignore": ["node_modules", "../../src/content/docs/references/**/*.{md,mdx}"],
+      "ignore": [
+        "node_modules",
+        "../../src/content/docs/reference/acl/",
+        "../../src/content/docs/reference/javascript/",
+        "../../src/content/docs/reference/{config,cli}.{md,mdx}",
+        "../../src/content/docs/release"
+      ],
       "type": "universal"
     }
   ],
