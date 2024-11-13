@@ -38,14 +38,16 @@ interface Props {
 ---
 
 <a
-  class='not-content'
+  class="not-content"
   href={Astro.props.href
     ? Astro.props.href
     : Astro.props.library
       ? `${Astro.url.origin}/release/${Astro.props.library}/v${Astro.props.version}`
       : `${Astro.url.origin}/release/tauri/v${Astro.props.version}`}
-  target='_blank'><Icon name='seti:clock' />Since <code>{Astro.props.version}</code></a
+  target="_blank"
 >
+  <Icon name="seti:clock" />Since <code>{Astro.props.version}</code>
+</a>
 
 <style>
   a {
