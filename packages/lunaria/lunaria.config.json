@@ -3,19 +3,21 @@
   "repository": {
     "name": "tauri-apps/tauri-docs",
     "branch": "v2",
-    "rootDir": "src/content/docs"
+    "rootDir": "src/content/docs",
+    "hosting": "github"
   },
   "files": [
     {
       "location": "../../src/content/docs/**/*.{md,mdx}",
       "pattern": "../../src/content/docs/@lang/@path",
+      "ignore": ["node_modules", "../../src/content/docs/references/**/*.{md,mdx}"],
       "type": "universal"
     }
   ],
   "outDir": "../../dist/contribute/translate-status",
   "localizableProperty": "i18nReady",
   "renderer": "./renderer.config.ts",
-  "ignoreKeywords": ["@ignore", "[ci]", "[format]"],
+  "ignoreKeywords": ["[en-only]", "[typo]", "[i18nReady]", "i18nIgnore", "[format]", "[ci]"],
   "defaultLocale": {
     "label": "English",
     "lang": "en"

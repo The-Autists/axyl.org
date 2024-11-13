@@ -80,6 +80,7 @@ h2 {
 main {
   max-width: 80ch;
   margin-inline: auto;
+  padding-bottom: 2rem;
 }
 
 .limit-to-viewport {
@@ -143,31 +144,19 @@ details > :last-child {
   font-size: 0.75rem;
 }
 
-.status-by-page {
+.status-by-file {
   margin-bottom: 1rem;
   border-collapse: collapse;
-  margin-inline: -1rem;
+  margin-inline: 1rem;
   border: var(--theme-table-border);
   font-size: 0.8125rem;
-  width: 85%;
-}
-
-.table-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-  width: 100%;
-  gap: 5px;
-}
-.status-by-file {
-  width: 100%;
+  width: 90%;
 }
 .status-by-file th {
   position: sticky;
   top: -1px;
   background: var(--theme-table-header);
+  border-bottom: none;
   white-space: nowrap;
   padding-inline: 0.3rem;
 }
