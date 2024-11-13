@@ -15,5 +15,5 @@ const translationStatusBuilder = new TranslationStatusBuilder({
   gitHubRef: 'v2',
   githubToken: process.env.GITHUB_TOKEN,
 });
-
+console.log('process.env.GITHUB_TOKEN', process.env.GITHUB_TOKEN);
 await translationStatusBuilder.run();

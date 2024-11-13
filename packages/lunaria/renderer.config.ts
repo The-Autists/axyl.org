@@ -1,5 +1,47 @@
 import { defineRendererConfig } from '@lunariajs/core';
+import { githubGet } from './github-get.mjs';
 
+interface PullRequest {
+  html_url: string;
+  title: string;
+  labels: {
+    name: string;
+  }[];
+}
+interface Options {
+  githubRepo: string;
+  githubToken: string;
+}
+async function getPullRequests(options: Options) {
+  const pullRequests: PullRequest[] = await githubGet({
+    url: `https://api.github.com/repos/${options.githubRepo}/pulls?state=open&per_page=100`,
+    githubToken: options.githubToken,
+  });
+
+  return pullRequests.filter((pr) => pr.labels.find((label) => label.name === 'i18n'));
+}
+function renderLink(href: string, text: string, className = ''): string {
+  return `<a href="${escape(href)}" class="${escape(
+    className
+  )}" target="_blank" rel="noopener noreferrer">${escape(text)}</a>`;
+}
+function renderTranslationNeedsReview(prs: PullRequest[]) {
+  const lines: string[] = [];
+
+  if (prs.length > 0) {
+    lines.push(`<ul>`);
+    lines.push(
+      ...prs.map((pr) => {
+        const title = pr.title.replaceAll('`', '');
+        return `<li>` + renderLink(pr.html_url, title) + `</li>`;
+      })
+    );
+    lines.push(`</ul>`);
+  }
+  lines.push(``);
+
+  return lines.join('\n');
+}
 const htmlStr = `<p>
           If you're interested in helping us translate
           <a href="https://v2.tauri.app/">v2.tauri.app</a> into one of the languages listed below,
@@ -19,6 +61,19 @@ const htmlStr = `<p>
 
 export default defineRendererConfig({
   slots: {
-    afterTitle: (config) => htmlStr,
+    afterTitle: () => htmlStr,
+    afterStatusByLocale() {
+      const conf: Options = {
+        githubRepo: process.env.GITHUB_REPOSITORY || 'tauri-apps/tauri-docs',
+        githubToken: process.env.GITHUB_TOKEN as string,
+      };
+      console.log('======conf==', conf);
+      let ctx = `<h2 id="needs-review"><a href="#needs-review">Translations that need reviews</a></h2>`;
+      getPullRequests(conf).then((data) => {
+        let bodyHtml = renderTranslationNeedsReview(data);
+        ctx += bodyHtml;
+      });
+      return ctx;
+    },
   },
 });
