@@ -1,0 +1,42 @@
+{
+  "$schema": "./node_modules/@lunariajs/core/config.schema.json",
+  "repository": {
+    "name": "tauri-apps/tauri-docs",
+    "branch": "v2",
+    "rootDir": "src/content/docs"
+  },
+  "files": [
+    {
+      "location": "../../src/content/docs/**/*.{md,mdx}",
+      "pattern": "../../src/content/docs/@lang/@path",
+      "type": "universal"
+    }
+  ],
+  "outDir": "../../dist/contribute/translate-status",
+  "localizableProperty": "i18nReady",
+  "renderer": "./renderer.config.ts",
+  "ignoreKeywords": ["@ignore", "[ci]", "[format]"],
+  "defaultLocale": {
+    "label": "English",
+    "lang": "en"
+  },
+  "locales": [
+    {
+      "label": "Français",
+      "lang": "fr"
+    },
+    {
+      "label": "Español",
+      "lang": "es"
+    },
+    {
+      "label": "简体中文",
+      "lang": "zh-cn"
+    }
+  ],
+  "dashboard": {
+    "title": "Tauri Docs Translation Status",
+    "basesToHide": ["../../src/content/docs/"],
+    "customCss": ["./style.css"]
+  }
+}
