@@ -12,8 +12,8 @@
       "pattern": "../../src/content/docs/@lang/@path",
       "ignore": [
         "node_modules",
-        "../../src/content/docs/reference/acl/",
-        "../../src/content/docs/reference/javascript/",
+        "../../src/content/docs/reference/acl/**/*.{md,mdx}",
+        "../../src/content/docs/reference/javascript/**/*.{md,mdx}",
         "../../src/content/docs/reference/{config,cli}.{md,mdx}",
         "../../src/content/docs/release"
       ],
@@ -23,7 +23,7 @@
   "outDir": "../../dist/contribute/translate-status",
   "localizableProperty": "i18nReady",
   "renderer": "./renderer.config.ts",
-  "ignoreKeywords": ["[en-only]", "[typo]", "[i18nReady]", "i18nIgnore", "[format]", "[ci]"],
+  "ignoreKeywords": ["[en-only]", "[typo]", "[i18nReady]", "[i18nIgnore]", "[format]", "[ci]"],
   "defaultLocale": {
     "label": "English",
     "lang": "en"
