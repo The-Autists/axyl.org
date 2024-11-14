@@ -25,6 +25,12 @@ importers:
       '@lorenzo_lewis/starlight-utils':
         specifier: ^0.2.0
         version: 0.2.0(@astrojs/starlight@0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.10(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.10(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
+      '@lunariajs/core':
+        specifier: ^0.1.1
+        version: 0.1.1
+      '@lunariajs/starlight':
+        specifier: ^0.1.1
+        version: 0.1.1(@astrojs/starlight@0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.10(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.10(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
@@ -1147,6 +1153,13 @@ packages:
     resolution: {integrity: sha512-sAqM9+DVsLe3xHM9wu2pEnKGYMs/bWS9qpR+CGHol3RihOELnOQTzHddXbdB1MtgesbI8dnQuG64Ocd8KkWsng==}
     engines: {node: '>=18.17.0'}
     hasBin: true
+
+  '@lunariajs/starlight@0.1.1':
+    resolution: {integrity: sha512-tpkqv8TCGUvz0z5nVk1ACb/2bT3seqDx+CHimNQugcpAFSip9BqDPOiWqaCujzZFajfR/L4mUsPAnavnnE8KVw==}
+    engines: {node: '>=18.17.0'}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.14.0'
+      astro: '>=4.0.0'
 
   '@mdx-js/mdx@3.0.1':
     resolution: {integrity: sha512-eIQ4QTrOWyL3LWEe/bu6Taqzq2HQvHcyTMaOrI95P2/LmJE7AsfPfgJGuFLPVqBUE1BC1rik3VIhU+s9u72arA==}
@@ -5046,6 +5059,14 @@ snapshots:
       simple-git: 3.27.0
       ultramatter: 0.0.4
       zod: 3.23.8
+    transitivePeerDependencies:
+      - supports-color
+
+  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.10(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.10(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))':
+    dependencies:
+      '@astrojs/starlight': 0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.10(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
+      '@lunariajs/core': 0.1.1
+      astro: 4.16.10(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)
     transitivePeerDependencies:
       - supports-color
 
