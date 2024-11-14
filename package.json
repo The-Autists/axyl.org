@@ -18,11 +18,8 @@
     "build:config": "pnpm --filter config-generator run build",
     "build:cli": "pnpm --filter cli-generator run build",
     "build:astro": "astro build",
-    "build:i18n": "pnpm --filter lunaria run build",
     "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro",
-    "preview": "astro preview",
-    "lunaria:build": "pnpm --filter lunaria run build",
-    "lunaria:preview": "pnpm --filter lunaria run preview"
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^5.2.0",
