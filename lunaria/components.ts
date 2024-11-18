@@ -1,5 +1,4 @@
 import { html } from '@lunariajs/core';
-import { githubGet } from './github-get.mjs';
 
 export const TitleParagraph = () =>
   html`<p>
@@ -19,57 +18,51 @@ export const TitleParagraph = () =>
       translated, and consider reviewing any open PRs in your language!
     </p>`;
 
-interface PullRequest {
-  html_url: string;
-  title: string;
-  labels: {
-    name: string;
-  }[];
-}
-interface Options {
-  githubRepo: string;
-  githubToken: string;
-}
-async function getPullRequests(options: Options) {
-  const pullRequests: PullRequest[] = await githubGet({
-    url: `https://api.github.com/repos/${options.githubRepo}/pulls?state=open&per_page=100`,
-    githubToken: options.githubToken,
-  });
-
-  return pullRequests.filter((pr) => pr.labels.find((label) => label.name === 'i18n'));
-}
-function renderLink(href: string, text: string, className = ''): string {
-  return `<a href="${escape(href)}" class="${escape(
-    className
-  )}" target="_blank" rel="noopener noreferrer">${escape(text)}</a>`;
-}
-function renderTranslationNeedsReviewList(prs: PullRequest[]) {
-  const lines: string[] = [];
-
-  if (prs.length > 0) {
-    lines.push(`<ul>`);
-    lines.push(
-      ...prs.map((pr) => {
-        const title = pr.title.replaceAll('`', '');
-        return `<li>` + renderLink(pr.html_url, title) + `</li>`;
-      })
-    );
-    lines.push(`</ul>`);
-  }
-  lines.push(``);
-
-  return lines.join('\n');
-}
-
 export function TranslationNeedsReview() {
-  const conf: Options = {
-    githubRepo: process.env.GITHUB_REPOSITORY || 'tauri-apps/tauri-docs',
-    githubToken: process.env.GITHUB_TOKEN as string,
-  };
-  let ctx = `<h2 id="needs-review"><a href="#needs-review">Translations that need reviews</a></h2>`;
-  getPullRequests(conf).then((data) => {
-    let bodyHtml = renderTranslationNeedsReviewList(data);
-    ctx += bodyHtml;
-  });
-  return ctx;
+  return `
+    <h2 id="needs-review"><a href="#needs-review">Translations that need reviews</a></h2>
+
+    <need-review-element></need-review-element>
+    <script nonce="abc123">
+      class NeedReviewElement extends HTMLElement {
+        url = 'https://api.github.com/repos/tauri-apps/tauri-docs/pulls?state=open&per_page=100';
+        constructor() {
+          super();
+
+          const shadowRoot = this.attachShadow({ mode: 'open' });
+          const style = 'a{color: var(--theme-accent);text-decoration: none;}a:hover { text-decoration: underline;color: var(--theme-text-bright);}'
+          this.getPullRequestData().then((data) => {
+            let list = data.filter((pr) => pr.labels.find((label) => label.name === 'i18n'))
+            let bodyHtml = this.renderLiElements(list);
+            shadowRoot.innerHTML = ['<style>', style, '</style>', '<ul>', bodyHtml, '</ul>'].join(" ");
+          }).catch(()=>{
+            shadowRoot.innerHTML = '<ul></ul>';
+          });
+        }
+
+        async getPullRequestData() {
+          const response = await fetch(this.url);
+          const json = await response.json();
+          if (!response.ok) {
+            throw new Error(
+              'GitHub API call failed: GET "' + this.url + '" returned status' + response.status + ':' + JSON.stringify(json)
+            );
+          }
+          return json || [];
+        }
+
+        renderLiElements(prs) {
+          let lines = prs.map((pr) => {
+            const title = pr.title.replace(/\`/g, '');
+            return '<li>' + this.renderLink(pr.html_url, title) + '</li>';
+          });
+          return lines?.join('') || '';
+        }
+        renderLink(href, text, className = '') {
+          return '<a href="' + href + '" class="' + className + '" target="_blank" rel="noopener noreferrer">' + text + '</a>';
+        }
+      }
+      customElements.define('need-review-element', NeedReviewElement);
+    </script>
+  `;
 }
