@@ -111,32 +111,39 @@ All the plugin's APIs are available through the JavaScript guest bindings:
 The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
 
 ```javascript
-import Database from '@tauri-apps/plugin-sql';
-// when using `"withGlobalTauri": true`, you may use
-// const V = window.__TAURI__.sql;
 
-const db = await Database.load('sqlite:test.db');
-await db.execute('INSERT INTO ...');
-```
-
-  </TabItem>
-  <TabItem label="MySQL">
-```javascript
-
-import Database from '@tauri-apps/plugin-sql';
+import Database from "@tauri-apps/plugin-sql";
 // when using `"withGlobalTauri": true`, you may use
 // const Database = window.__TAURI__.sql;
 
-const db = await Database.load('mysql://user:pass@host/database');
-await db.execute('INSERT INTO ...');
+const db = await Database.load("sqlite:test.db");
+await db.execute("INSERT INTO ...");
+
+````
+
+  </TabItem>
+  <TabItem label="MySQL">
+
+```javascript
+
+import Database from "@tauri-apps/plugin-sql";
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI__.sql;
+
+const db = await Database.load("mysql://user:password@host/test");
+await db.execute("INSERT INTO ...");
 
 ````
   </TabItem>
   <TabItem label="PostgreSQL">
+
 ```javascript
 
 import Database from "@tauri-apps/plugin-sql";
-const db = await Database.load("postgres://postgres:password@localhost/test");
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI__.sql;
+
+const db = await Database.load("postgres://user:password@host/test");
 await db.execute("INSERT INTO ...");
 
 ````
@@ -158,8 +165,8 @@ const result = await db.execute(
 );
 
 const result = await db.execute(
-"UPDATE todos SET title = $1, status = $2 WHERE id = $3",
-[todos.title, todos.status, todos.id],
+  "UPDATE todos SET title = $1, status = $2 WHERE id = $3",
+  [todos.title, todos.status, todos.id],
 );
 
 ````
@@ -188,8 +195,8 @@ const result = await db.execute(
 );
 
 const result = await db.execute(
-"UPDATE todos SET title = $1, status = $2 WHERE id = $3",
-[todos.title, todos.status, todos.id],
+  "UPDATE todos SET title = $1, status = $2 WHERE id = $3",
+  [todos.title, todos.status, todos.id],
 );
 
 ````
