@@ -1,5 +1,7 @@
 ---
 title: System Tray
+sidebar:
+  order: 1
 tableOfContents:
   maxHeadingLevel: 4
 ---
@@ -24,7 +26,7 @@ The tray API is available in both JavaScript and Rust.
 
 ### Create a Tray Icon
 
-<Tabs>
+<Tabs synckey="language">
 <TabItem label="JavaScript">
 Use the [`TrayIcon.new`] static function to create a new tray icon:
 
@@ -64,7 +66,7 @@ See [`TrayIconBuilder`] for more information on customization options.
 
 When creating the tray you can use the application icon as the tray icon:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```javascript
@@ -104,7 +106,7 @@ or set the [`menuOnLeftClick`] JavaScript option to `false`.
 
 {/* TODO: link to the menu plugin documentation page */}
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```javascript
@@ -152,7 +154,7 @@ let tray = TrayIconBuilder::new()
 
 #### Listen to Menu Events
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 On JavaScript you can attach a menu click event listener directly to the menu item:
 
@@ -308,7 +310,7 @@ See [`TrayIconEvent`][rust TrayIconEvent] for more information on the event type
 [`TrayIconOptions`]: /reference/javascript/api/namespacetray/#trayiconoptions
 [`TrayIconBuilder`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html
 [TrayIconBuilder::menu_on_left_click]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.menu_on_left_click
-[`menuOnLeftClick`]: http://localhost:4321/reference/javascript/api/namespacetray/#properties-1
+[`menuOnLeftClick`]: /reference/javascript/api/namespacetray/#properties-1
 [`TrayIconBuilder::on_menu_event`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.on_menu_event
 [js TrayIconEvent]: /reference/javascript/api/namespacetray/#trayiconevent
 [rust TrayIconEvent]: https://docs.rs/tauri/2.0.0/tauri/tray/enum.TrayIconEvent.html

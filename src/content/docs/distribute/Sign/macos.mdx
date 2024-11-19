@@ -9,7 +9,7 @@ Code signing is required on macOS to allow your application to be listed in the 
 
 ## Prerequisites
 
-Code signing on macOS requries an [Apple Developer] account which is either paid (99$ per year) or on the free plan. You also need an Apple device where you perform the code signing. This is required by the signing process and due to Apple's Terms and Conditions.
+Code signing on macOS requires an [Apple Developer] account which is either paid (99$ per year) or on the free plan. You also need an Apple device where you perform the code signing. This is required by the signing process and due to Apple's Terms and Conditions.
 
 :::note
 Note when using a free Apple Developer account, you will not be able to notarize your application and it will still show up as not verified when opening the app.
@@ -74,7 +74,7 @@ To use the certificate in CI/CD platforms, you must export the certificate to a 
 and configure the `APPLE_CERTIFICATE` and `APPLE_CERTIFICATE_PASSWORD` environment variables:
 
 1. Open the `Keychain Access` app, click the _My Certificates_ tab in the _login_ keychain and find your certificate's entry.
-2. Expand the entry, double-click on the key item, and select `Export "$KEYNAME"`.
+2. Expand the entry, right-click on the key item, and select `Export "$KEYNAME"`.
 3. Select the path to save the certificate's `.p12` file and define a password for the exported certificate.
 4. Convert the `.p12` file to base64 running the following script on the terminal:
 
