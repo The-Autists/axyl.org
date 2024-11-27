@@ -19,7 +19,8 @@
     "build:cli": "pnpm --filter cli-generator run build",
     "build:astro": "astro build",
     "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "tauri": "tauri"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^5.2.0",
@@ -42,6 +43,9 @@
     "shiki": "^1.1.7",
     "starlight-blog": "^0.15.0",
     "starlight-links-validator": "^0.13.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
   },
   "packageManager": "pnpm@9.14.2",
   "engines": {
