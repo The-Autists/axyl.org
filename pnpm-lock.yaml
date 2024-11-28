@@ -73,6 +73,10 @@ importers:
       starlight-links-validator:
         specifier: ^0.13.0
         version: 0.13.3(@astrojs/starlight@0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.15(@types/node@22.9.3)(rollup@2.79.1)(sass@1.81.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.15(@types/node@22.9.3)(rollup@2.79.1)(sass@1.81.0)(terser@5.31.0)(typescript@5.7.2))
+    devDependencies:
+      '@tauri-apps/cli':
+        specifier: ^2
+        version: 2.1.0
 
   packages/cli-generator:
     dependencies:
