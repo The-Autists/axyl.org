@@ -32,7 +32,7 @@ Tauri 是一个工具包，可以帮助开发人员为主要的桌面平台制�
 
 同样的情况可以在 Rust、Node 和 c++ 的战场上看到，强硬派立场鲜明，拒绝跨社区合作。
 
-今天，Tauri 使用 Rust 作为后端，但在不久的将来，其他后端，如 Go、Nim、Python、Csharp 等将成为可能。这是因为我们正在维护与 [webview](https://github.com/webview) 组织的官方 Rust 绑定，并计划让您根据需要切换后端。由于我们的 API 可以使用 C interop 以任何语言实现，因此完全符合规范只需要一个 PR。
+今天，Tauri 使用 Rust 作为后端，但在不久的将来，其他后端，如 Go、Nim、Python、Csharp 等将成为可能。这是因为我们正在维护官方的 Rust 绑定到 [webview](https://github.com/webview) 组织，并计划让你根据自己的需要切换后端。由于我们的 API 可以使用 C interop 以任何语言实现，因此完全符合规范只需要一个 PR。
 
 ## 真正的开源
 
