@@ -163,6 +163,10 @@ export default defineConfig({
                   link: '/start/',
                 },
                 {
+                  label: 'Desktop and Mobile',
+                  link: '/start/desktop-mobile/',
+                },
+                {
                   label: 'Prerequisites',
                   translations: {
                     'zh-CN': '前置条件',
