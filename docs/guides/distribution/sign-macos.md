@@ -84,8 +84,10 @@ Notarization is required when using a <i>Developer ID Application</i> certificat
 
 :::
 
-- `APPLE_ID`, `APPLE_PASSWORD` and `APPLE_TEAM_ID`: to authenticate with your Apple ID, set the `APPLE_ID` to your Apple account email (example: `export APPLE_ID=tauri@icloud.com`) and the `APPLE_PASSWORD` to an [app-specific password] for the Apple account.
-- `APPLE_API_ISSUER`, `APPLE_API_KEY` and `APPLE_API_KEY_PATH`: alternatively, you can authenticate using an App Store Connect API key. Open the App Store Connect's [Users and Access page], select the `Keys` tab, click on the `Add` button and select a name and the `Developer` access. The `APPLE_API_ISSUER` (`Issuer ID`) is presented above the keys table, and the `APPLE_API_KEY` is the value on the `Key ID` column on that table. You also need to download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key). The private key file path must be set via the `APPLE_API_KEY_PATH` environment variable.
+You have two alternatives for setting up authentication.
+
+- Apple ID: `APPLE_ID`, `APPLE_PASSWORD` and `APPLE_TEAM_ID`. Set the `APPLE_ID` to your Apple account email (example: `export APPLE_ID=tauri@icloud.com`) and the `APPLE_PASSWORD` to an [app-specific password] for the Apple account.
+- App Store Connect API key: `APPLE_API_ISSUER`, `APPLE_API_KEY` and `APPLE_API_KEY_PATH`. Open the [App Store Connect API page], select the `Team Keys` tab, click on the `Add` button and select a name and the `Developer` access. The `APPLE_API_ISSUER` (`Issuer ID`) is presented above the keys table, and the `APPLE_API_KEY` is the value on the `Key ID` column on that table. You also need to download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key). The private key file path must be set via the `APPLE_API_KEY_PATH` environment variable.
 
 ### Building the application
 
@@ -133,5 +135,5 @@ The workflow pulls the secrets from GitHub and defines them as environment varia
 [team ID]: https://developer.apple.com/account#MembershipDetailsCard
 [create a certificate signing request]: https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request
 [certificates, ids & profiles page]: https://developer.apple.com/account/resources/certificates/list
-[users and access page]: https://appstoreconnect.apple.com/access/users
+[app store connect api page]: https://appstoreconnect.apple.com/access/integrations/api
 [tauri action]: https://github.com/tauri-apps/tauri-action
