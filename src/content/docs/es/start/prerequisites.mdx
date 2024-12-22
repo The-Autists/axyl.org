@@ -365,6 +365,7 @@ Sin embargo, puedes actualizar la sesión actual:
 ```ps
 [System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }
 ```
+
 :::
 
 </TabItem>
