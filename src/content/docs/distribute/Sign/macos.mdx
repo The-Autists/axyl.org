@@ -5,6 +5,9 @@ sidebar:
   order: 11
 ---
 
+import { Image } from 'astro:assets';
+import CertificateTrustSettings from '@assets/distribute/sign/keychain-certificate-trust-settings.png';
+
 Code signing is required on macOS to allow your application to be listed in the [Apple App Store] and to prevent a warning that your application is broken and can not be started, when downloaded from the browser.
 
 ## Prerequisites
@@ -172,6 +175,25 @@ To notarize your application, you must provide credentials for Tauri to authenti
 :::note
 Notarization is required when using a _Developer ID Application_ certificate.
 :::
+
+
+## FAQ
+
+### Error during notarization "The signature of the binary is invalid."
+
+When notarizing it makes use of a certificate stored in your Keychain. This certificate has specific trust properties. If you have updated these properties for some reason they can interfere with the siging via the Tauri Bundler.
+You can find your certificates in the KeyChain application under the tab "Certificates".
+
+The trust properties of the certificate should be set to "Use System Defaults".
+
+<Image
+  src={CertificateTrustSettings}
+  alt="KeyChain Certificate Trust settings"
+/>
+
+
+
+
 
 [Certificates]: https://developer.apple.com/account/resources/certificates/list
 [Apple Developer]: https://developer.apple.com
