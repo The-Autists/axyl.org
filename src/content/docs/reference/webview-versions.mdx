@@ -14,6 +14,21 @@ WebView2 is supported on Windows 7 and newer and comes preinstalled on Windows 1
 
 Tauri uses WebKit on macOS (through [WKWebView](https://developer.apple.com/documentation/webkit/wkwebview?language=objc)) and Linux (through `webkit2gtk`).
 
+:::caution[`webkitgtk` Issues]
+
+`webkitgtk` is infamous for its security, compatibility, and performance issues:
+
+- [Tauri 2.0 tries to make mobile apps crossplatform · Hacker News](https://news.ycombinator.com/item?id=39487010)
+- [Show HN: Electrico – Electron Without Node and Chrome · Hacker News](https://news.ycombinator.com/item?id=41565913)
+- [[bug] Bad performance on linux · Issue #3988 · tauri-apps/tauri](https://github.com/tauri-apps/tauri/issues/3988#issuecomment-1447098957)
+- [Bundle chromium renderer · Issue #1064 · tauri-apps/wry](https://github.com/tauri-apps/wry/issues/1064#issuecomment-2094904381)
+
+If you're looking for first class Linux support, Tauri might not currently be your best option.
+
+Providing alternatives to `webkitgtk` is [on the roadmap](/blog/tauri-20/#roadmap).
+
+:::
+
 ### Interpreting WebKit Version Numbers
 
 Webkit version numbers are quite complicated, so below is some helpful information to understand them.
