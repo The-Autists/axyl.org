@@ -145,6 +145,7 @@ export default defineConfig({
           label: 'Guides',
           translations: {
             'zh-CN': '指引',
+            'ko': '가이드',
           },
           collapsed: true,
           items: [
@@ -152,6 +153,7 @@ export default defineConfig({
               label: 'Quick Start',
               translations: {
                 'zh-CN': '快速开始',
+                'ko': '시작하기',
               },
               collapsed: true,
               items: [
@@ -159,6 +161,7 @@ export default defineConfig({
                   label: 'What is Tauri?',
                   translations: {
                     'zh-CN': '什么是 Tauri？',
+                    'ko': 'Tauri가 무엇인가요?',
                   },
                   link: '/start/',
                 },
@@ -166,6 +169,7 @@ export default defineConfig({
                   label: 'Prerequisites',
                   translations: {
                     'zh-CN': '前置条件',
+                    'ko': '요구사항',
                   },
                   link: '/start/prerequisites/',
                 },
@@ -173,6 +177,7 @@ export default defineConfig({
                   label: 'Create a Project',
                   translations: {
                     'zh-CN': '创建项目',
+                    'ko': '프로젝트 생성하기',
                   },
                   link: '/start/create-project/',
                 },
@@ -180,6 +185,7 @@ export default defineConfig({
                   label: 'Frontend Configuration',
                   translations: {
                     'zh-CN': '前端配置',
+                    'ko': '프론트엔드 설정',
                   },
                   collapsed: true,
                   autogenerate: { directory: 'start/frontend' },
@@ -188,6 +194,7 @@ export default defineConfig({
                   label: 'Upgrade & Migrate',
                   translations: {
                     'zh-CN': '升级和迁移',
+                    'ko': '업그레이드 & 마이그레이션',
                   },
                   collapsed: true,
                   autogenerate: { directory: 'start/migrate' },

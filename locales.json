@@ -14,5 +14,9 @@
   "zh-cn": {
     "label": "简体中文",
     "lang": "zh-cn"
+  },
+  "ko": {
+    "label": "한국어",
+    "lang": "ko"
   }
 }

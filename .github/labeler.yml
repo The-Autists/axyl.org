@@ -17,3 +17,6 @@ i18n:
 
 "i18n: zh-cn":
   - src/content/docs/zh-cn/**/*
+
+"i18n: ko":
+  - src/content/docs/ko/**/*
