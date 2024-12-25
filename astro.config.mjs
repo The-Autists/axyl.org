@@ -13,54 +13,14 @@ import { fileURLToPath } from 'url';
 import lunaria from '@lunariajs/starlight';
 
 const authors = {
-  nothingismagick: {
-    name: 'Daniel Thompson-Yvetot',
-    title: 'Tauri Co-Founder',
+  awfixer: {
+    name: 'Austin Ware',
+    title: 'AxylOS BDFL',
     picture: '/authors/nothingismagick.jpeg',
-  },
-  lucasfernog: {
-    name: 'Lucas Nogueira',
-    title: 'Tauri Co-Founder',
-    picture: '/authors/lucasfernog.jpeg',
-  },
-  beanow: {
-    name: 'Robin van Boven',
-    title: 'Tauri Board Director',
-    picture: '/authors/Beanow.png',
-  },
-  jbolda: {
-    name: 'Jacob Bolda',
-    title: 'Tauri Board Director',
-    picture: '/authors/jbolda.jpeg',
-  },
-  lorenzolewis: {
-    name: 'Lorenzo Lewis',
-    title: 'Tauri Community Lead',
-    picture: '/authors/lorenzolewis.png',
-  },
-  tweidinger: {
-    name: 'Tillmann Weidinger',
-    title: 'Tauri Security',
-    picture: '/authors/tweidinger.png',
-  },
-  amrbashir: {
-    name: 'Amr Bashir',
-    title: 'Tauri Development',
-    picture: '/authors/amrbashir.png',
-  },
-  wusyong: {
-    name: 'Wu Yu Wei',
-    title: 'Tauri Development Lead',
-    picture: '/authors/wusyong.png',
-  },
-  chip: {
-    name: 'Chip Reed',
-    title: 'Tauri Security',
-    picture: '/authors/chip.png',
   },
 };
 
-const site = 'https://v2.tauri.app';
+const site = 'https://axyl.org';
 
 // https://astro.build/config
 export default defineConfig({
@@ -82,18 +42,17 @@ export default defineConfig({
         }),
         lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
       ],
-      title: 'Tauri',
-      description: 'The cross-platform app building toolkit',
+      title: 'AxylOS',
+      description: 'The Operating System to kill all Operating Systems',
       logo: {
         dark: './src/assets/logo.svg',
         light: './src/assets/logo_light.svg',
         replacesTitle: true,
       },
       social: {
-        github: 'https://github.com/tauri-apps/tauri',
-        discord: 'https://discord.com/invite/tauri',
-        twitter: 'https://twitter.com/TauriApps',
-        mastodon: 'https://fosstodon.org/@TauriApps',
+        github: 'https://github.com/the-autists/axyl',
+        discord: 'https://discord.com/invite/awfixer',
+        twitter: 'https://twitter.com/awfixer',
         rss: `${site}/rss/`,
       },
       components: {
@@ -134,7 +93,7 @@ export default defineConfig({
         baseUrl:
           process.env.NODE_ENV === 'development'
             ? `vscode://file/${path.dirname(fileURLToPath(import.meta.url))}`
-            : 'https://github.com/tauri-apps/tauri-docs/edit/v2',
+            : 'https://github.com/the-autists/axyl.org/edit/v2',
       },
       customCss: ['./src/styles/custom.scss'],
       expressiveCode: {
